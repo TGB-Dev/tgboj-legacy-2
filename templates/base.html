@@ -181,6 +181,9 @@
         <clipPath id="rating-clip"><circle cx="8" cy="8" r="7"/></clipPath>
     </defs>
 </svg>
+<div id="nav-background">
+    <div id="nav-shadow"></div>
+</div>
 <nav id="navigation" class="unselectable">
     <div id="nav-container">
         <a id="navicon" href="javascript:void(0)"><i class="fa fa-bars"></i></a>
@@ -209,7 +212,7 @@
                     <li>
                         <a href="{{ url('user_page') }}">
                             <span>
-                                <img src="{{ gravatar(request.user, 32) }}" height="24" width="24">{# -#}
+                                <img src="{{ gravatar(request.user, 32) }}" height="36" width="36">{# -#}
                                 <span>{{ _('Hello, %(username)s.', username=bold(request.profile.display_name)) }}</span>
                             </span>
                         </a>
@@ -240,7 +243,6 @@
             {% endif %}
         </span>
     </div>
-    <div id="nav-shadow"></div>
 </nav>
 {% if request.in_contest %}
     <div id="contest-info">
