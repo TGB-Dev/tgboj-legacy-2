@@ -333,7 +333,7 @@
             {% if i18n_config.footer %}
                 {{ i18n_config.footer|safe }} |
             {% endif %}
-            <form action="{{ url('set_language') }}" id="set_language" method="post" style="display: inline; visibility: hidden;">
+            <form action="{{ url('set_language') }}" id="set_language" method="post" style="display: none;">
                 {% csrf_token %}
             <input name="next" type="hidden" value="{{ request.get_full_path() }}">
             <select name="language" onchange="form.submit()" style="height: 1.5em">
