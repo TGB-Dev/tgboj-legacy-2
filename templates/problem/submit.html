@@ -94,7 +94,14 @@
                 });
 
                 $('#ace_source').on('ace_load', function (e, editor) {
-                    update_language_template();
+                    // Import file
+                    var code = localStorage.getItem('pending_code');
+                    if (code) {
+                        $('#id_source').val(code);
+                        window.ace_source.getSession().setValue(code);
+                        localStorage.setItem('pending_code', '');
+                    }
+                    else update_language_template();
                     editor.commands.addCommand({
                         name: 'save',
                         bindKey: {win: 'Ctrl-S', mac: 'Command-S'},
