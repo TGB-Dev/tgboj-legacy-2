@@ -66,6 +66,15 @@
             }
         </style>
     {% endif %}
+    <style>
+        #lang-vi {
+            background-image: url("{{ static('icons/logo_vi.svg') }}");
+        }
+    
+        #lang-en {
+            background-image: url("{{ static('icons/logo_en.svg') }}");
+        }
+    </style>
     {% block media %}{% endblock %}
     {% if not INLINE_JQUERY %}
         <script src="{{ JQUERY_JS }}"></script>
@@ -163,6 +172,14 @@
         <script type="text/javascript">{{ request.profile.user_script|safe }}</script>
     {% endif %}
 
+    <script>
+        function toggleLanguage() {
+            lang = ['vi', 'en'][0 | '{{ LANGUAGE_CODE }}' == 'vi'];
+            $("select[name=language]").val(lang);
+            $("#set_language").submit();
+        }
+    </script>
+
     <noscript>
         <style>
             #content {
@@ -204,6 +221,17 @@
                     {% endwith %}
                 </li>
             {% endfor %}
+            <li>
+                <button id="lang-toggle" onclick="toggleLanguage()">
+                    {% if LANGUAGE_CODE == 'vi' %}
+                    <div id="lang-vi"></div>
+                    <div id="lang-en"></div>
+                    {% else %}
+                    <div id="lang-en"></div>
+                    <div id="lang-vi"></div>
+                    {% endif %}
+                </button>
+            </li>
         </ul>
 
         <span id="user-links">
@@ -289,11 +317,11 @@
     <footer>
         <span id="footer-content">
             <br>
-            <a style="color: #808080" href="https://dmoj.ca">{{ _('proudly powered by **DMOJ**')|markdown('default', strip_paragraphs=True) }}</a> |
+            <a style="color: #808080" href="https://dmoj.ca">{{ _('proudly powered by **DMOJ**')|markdown('default', strip_paragraphs=True) }}</a>
             {% if i18n_config.footer %}
                 {{ i18n_config.footer|safe }} |
             {% endif %}
-            <form action="{{ url('set_language') }}" method="post" style="display: inline">
+            <form action="{{ url('set_language') }}" id="set_language" method="post" style="display: inline; visibility: hidden;">
                 {% csrf_token %}
             <input name="next" type="hidden" value="{{ request.get_full_path() }}">
             <select name="language" onchange="form.submit()" style="height: 1.5em">
