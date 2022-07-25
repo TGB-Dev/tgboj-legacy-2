@@ -10,13 +10,6 @@ def get_new_contests(request):
         .order_by("start_time")
     )
 
-    contests = []
-
-    if request.user.is_authenticated:
-        for contest in visible_contests.filter(start_time__gt=now).all():
-            if request.profile not in contest.seen_by.all():
-                contest.seen_by.add(request.profile)
-                contests.append(contest)
-                contest.save()
+    contests = visible_contests.filter(start_time__gt=now).all()
 
     return {"new_contests": contests}
