@@ -46,7 +46,9 @@
 
 {% block content_js_media %}
     {% include "comments/media-js.html" %}
+    {% autoescape off %}
     <script>
+        var extensions = {{ extensions }};
         $(function () {
             var fileInput = $('#submit-file');
             fileInput.change(function () {
@@ -54,12 +56,19 @@
                 var reader = new FileReader;
                 reader.readAsText(file);
                 reader.onload = function () {
-                    localStorage.setItem('pending_code', reader.result);
-                    $('a.unselectable.button.full')[0].click();
+                    var lang;
+                    for (var extension of extensions) if (file.name.endsWith(extension[1])) lang = extension[0];
+                    if (lang != undefined) {
+                        localStorage.setItem('pending_code', reader.result);
+                        localStorage.setItem('pending_language', lang);
+                        $('a.unselectable.button.full')[0].click();
+                    }
+                    else alert("Invalid file!");
                 };
             });
         });
     </script>
+    {% endautoescape %}
 {% endblock %}
 
 {% block title_row %}
