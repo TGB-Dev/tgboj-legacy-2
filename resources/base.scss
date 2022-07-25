@@ -700,9 +700,10 @@ math {
     position: relative;
     width: 56px;
     height: 42px;
-    background-color: #fff;
+    background-color: transparent;
     overflow: hidden;
     border-radius: 5px;
+    overflow: hidden;
 
     div {
         position: absolute;
@@ -712,7 +713,6 @@ math {
         height: 100%;
         pointer-events: none;
         background-size: 56px 42px;
-        border-radius: 5px;
         transition: left 200ms;
 
         &:last-child {
