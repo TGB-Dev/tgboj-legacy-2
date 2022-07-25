@@ -42,7 +42,7 @@ DMOJ_2FA_HARDCORE = False
 # Set to 1 to use HTTPS if request was made to https://
 # Set to 2 to always use HTTPS for links
 # Set to 0 to always use HTTP for links
-DMOJ_SSL = 0
+DMOJ_SSL = 1
 
 # Refer to dmoj.ca/post/103-point-system-rework
 DMOJ_PP_STEP = 0.95
@@ -330,9 +330,9 @@ TEMPLATES = [
                 'judge.template_context.site_name',
                 'judge.template_context.misc_config',
                 'judge.template_context.math_setting',
+                'judge.template_context.get_new_contests',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
-                'judge.context_processors.get_new_contests',
             ],
             'autoescape': select_autoescape(['html', 'xml']),
             'trim_blocks': True,
